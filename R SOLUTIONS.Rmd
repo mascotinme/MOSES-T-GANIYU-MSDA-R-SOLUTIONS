@@ -1,0 +1,21 @@
+# QUESTION 1
+factorial(12)
+
+#QUESTION 2 (4*5 = 20, TO 5*10=50)
+vec1 <- c(4:10)
+vec2 <- vec1*5
+vec2
+
+#QUESTION 3
+quadratic_formula <- function(a,b,c) {
+  
+  if((b^2)-(4*a*c)>=0)
+  {
+    q_p_x <-((-1*b)+sqrt((b^2)-(4*a*c)))/(2*a)
+    q_n_x <- ((-1*b)-sqrt((b^2)-(4*a*c)))/(2*a)
+    quadratic <- c(q_p_x, q_n_x)
+    quadratic
+  }
+}
+
+quadratic_formula(2, -5, -3)
