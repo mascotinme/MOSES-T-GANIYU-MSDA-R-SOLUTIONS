@@ -1,3 +1,6 @@
+---
+output: word_document
+---
 # QUESTION 1
 factorial(12)
 
@@ -19,3 +22,11 @@ quadratic_formula <- function(a,b,c) {
 }
 
 quadratic_formula(2, -5, -3)
+
+sample(Cars93$Make, 10)medians <- numeric(1000)
+for (i in 1:1000) {
+medians[i] <- median(sample(x, replace=TRUE))
+}
+sample(c("H","T"), 10, replace=TRUE)
+pbinom(7, size=10, prob=0.5)
+

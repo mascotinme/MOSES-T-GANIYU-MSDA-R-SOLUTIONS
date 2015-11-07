@@ -1,0 +1,19 @@
+---
+title: "MSDA WEEK 2 ASSIGNMENT SOLUTION"
+author: "MUSA T GANIYU"
+date: "November 6, 2015"
+output: .Rmd
+---
+#solution
+my.choose <- function(n,x){
+    if((n==x)||(x==0)) return(1);
+    m <- min(x,n-x)
+    prod((n:(n-m+1))/(m:1))
+};
+my.choose(5,3);
+#Ordinary choose
+choose(5,3);
+#Testings
+my.choose(5,-3);
+my.choose(-5,3);
+my.choose(-5,-3);
