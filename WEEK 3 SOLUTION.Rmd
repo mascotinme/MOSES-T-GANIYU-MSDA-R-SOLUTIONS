@@ -1,0 +1,93 @@
+---
+title: "WEEK 3 R ASSIGNMENT"
+author: "MUSA T GANIYU"
+date: "November 12, 2015"
+output: html_document
+---
+
+
+
+```{r, echo=FALSE}
+
+#Extract the data from local files
+
+mushroom_data <- read.csv("mushroom.txt", header= TRUE);
+
+#View the data
+View(mushroom_data);
+
+#view the data structure
+str(mushroom_data);
+
+#have a look the first 4 rows of the data.frame(how it looks like!)
+head(mushroom_data, 4);
+
+# get plyr running
+library("plyr")
+
+#Rename Columns using plyr
+mushroom=rename(mushroom_data, c("c"="Chanterelle", "x"="Morel", "p"="portobello", "e"="enoki ","s"="shiitake", "o"="oyster","n"="button", "p.1"="first portobello", "f"="Hen", "w"="wood", "u"="under", "k"="king", "k.1"="first king",
+"s.1"="first shiitake", "s.2"="second_shiitake", "s.3"="third shiitake", "p.2"="second portobello", "w.1"="first wood", "w.2"="second wood", "p.3"="third portobello", "e.1"="first enoki", "n.1"="first button" ,"t"="testing"));
+
+#loook!
+
+head(mushroom,4);
+
+
+# Check the data structure, oh! its a factor!
+str(mushroom);
+
+
+# Now, Change it to Character, ok!.
+
+mushroom <- as.data.frame(lapply(mushroom,function (y) if(class(y)=="factor" ) as.character(y) else y),stringsAsFactors=F);
+
+str(mushroom);
+
+View(mushroom);
+# changing the data.frame column subsets
+
+# Portobello Column
+mushroom$portobello[mushroom$portobello == "e"] <- "edible"
+mushroom$portobello[mushroom$portobello == "p"] <- "pendant";
+
+# Morel Column
+mushroom$Morel[mushroom$Morel == "x"] <- "convex"
+mushroom$Morel[mushroom$Morel == "b"] <- "bell"
+mushroom$Morel[mushroom$Morel == "f"] <- "flaring"
+mushroom$Morel[mushroom$Morel == "s"] <- "spicy";
+
+# Morel Column
+mushroom$shiitake[mushroom$shiitake == "s"] <- "sunken"
+mushroom$shiitake[mushroom$shiitake == "y"] <- "yellow"
+mushroom$shiitake[mushroom$shiitake == "f"] <- "flat";
+
+# Button Column
+mushroom$button[mushroom$button == "y"] <- "solitary"
+mushroom$button[mushroom$button == "w"] <- "white"
+mushroom$button[mushroom$button == "g"] <- "gray"
+mushroom$button[mushroom$button == "n"] <- "notched"
+mushroom$button[mushroom$button == "e"] <- "red"
+mushroom$button[mushroom$button == "b"] <- "buff";
+
+# Testing Column
+mushroom$testing[mushroom$testing == "t"] <- "tapering"
+mushroom$testing[mushroom$testing == "f"] <- "fibrous";
+
+
+# First.Portobello Column
+mushroom$first.portobello[mushroom$first.portobello == "a"] <- "almond"
+mushroom$first.portobello[mushroom$first.portobello == "l"] <- "leaves"
+mushroom$first.portobello[mushroom$first.portobello == "p"] <- "pendant"
+mushroom$first.portobello[mushroom$first.portobello == "n"] <- "brown";
+
+# Hen Column
+mushroom$Hen[mushroom$Hen == "f"] <- "free";
+
+#Chanterelle Column
+
+mushroom$Chanterelle[mushroom$Chanterelle == "c"] <- "creosote"
+mushroom$Chanterelle[mushroom$Chanterelle == "w"] <- "white";
+
+
+# Thanks.

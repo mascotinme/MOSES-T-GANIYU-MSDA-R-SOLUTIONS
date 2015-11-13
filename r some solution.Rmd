@@ -1,0 +1,11 @@
+mychoose = function(n,r) {
+if (n%%1 != 0) n = round(n)
+  if (r%%1 != 0) r = round(r)
+  
+  if (r < 0 | n < r) return(0)
+  if ( n == r | r == 0)   return(1)
+  if (r < n/2) r = n - r
+  c = 1
+  for (i in (r+1):n) c = c*(i/(i-r))
+  c
+}
