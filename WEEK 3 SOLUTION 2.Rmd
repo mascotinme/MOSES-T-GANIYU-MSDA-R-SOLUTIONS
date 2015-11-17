@@ -1,0 +1,87 @@
+---
+title: "WEEK 3 R ASSIGNMENT"
+author: "MUSA T GANIYU"
+date: "November 12, 2015"
+output: html_document
+---
+
+
+
+```{r, echo=FALSE}
+
+#Extract the data from local files
+
+mushroom <- read.csv("mushroom1.txt", header= TRUE);
+
+
+
+
+# get plyr running
+library("plyr");
+#view the data structure
+str(mushroom);
+
+#Rename the from mushroom to mymushroom and limiting number of column to be displayed. 
+mymushroom <- mushroom[,1:7]
+head(mymushroom,7);
+str(mymushroom)
+
+
+
+#Rename Columns using plyr
+mymushroom=rename(mymushroom, c("x"="habitat", "p"="stalk.shape", "s"="stalk.root", "n"="veil.color", "t"="ring.type", "p.1"="gill.size", "f"="cap.shape"));
+
+# change the data type to character from factors
+
+mymushroom <- as.data.frame(lapply(mymushroom,function (y) if(class(y)=="factor" ) as.character(y) else y),stringsAsFactors=F);
+
+
+
+# Check the data structure, oh! its a factor!
+str(mymushroom);
+
+
+
+
+# changing the data.frame row subsets
+
+# Stalk.shape
+mymushroom$stalk.shape[mymushroom$stalk.shape == "e"] <- "edible"
+mymushroom$stalk.shape[mymushroom$stalk.shape == "p"] <- "poisonous";
+
+# Habitat Column
+mymushroom$habitat[mymushroom$habitat == "x"] <- "convex"
+mymushroom$habitat[mymushroom$habitat == "b"] <- "buff"
+mymushroom$habitat[mymushroom$habitat == "f"] <- "fibrous"
+mymushroom$habitat[mymushroom$habitat == "s"] <- "scaly";
+
+
+# Stalk.root Column
+mymushroom$stalk.root[mymushroom$stalk.root == "s"] <- "sunken"
+mymushroom$stalk.root[mymushroom$stalk.root == "y"] <- "yellow"
+mymushroom$stalk.root[mymushroom$stalk.root == "f"] <- "flaring";
+
+
+# Veil.color Column
+mymushroom$veil.color[mymushroom$veil.color == "y"] <- "yellow"
+mymushroom$veil.color[mymushroom$veil.color == "w"] <- "white"
+mymushroom$veil.color[mymushroom$veil.color == "g"] <- "gray"
+mymushroom$veil.color[mymushroom$veil.color == "n"] <- "narrow";
+
+# Ring.type Column
+mymushroom$ring.type[mymushroom$ring.type == "t"] <- "tappering"
+mymushroom$ring.type[mymushroom$ring.type == "f"] <- "flat";
+
+
+# Gill.size Column
+mymushroom$gill.size[mymushroom$gill.size == "a"] <- "abundant"
+mymushroom$gill.size[mymushroom$gill.size == "l"] <- "leaves"
+mymushroom$gill.size[mymushroom$gill.size == "p"] <- "paths"
+mymushroom$gill.size[mymushroom$gill.size == "n"] <- "numerous";
+
+# cap.shape Column
+mymushroom$cap.shape[mymushroom$cap.shape == "f"] <- "flat";
+
+View(mymushroom);
+
+# Thanks.
