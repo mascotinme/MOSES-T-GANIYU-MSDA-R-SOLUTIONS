@@ -1,0 +1,89 @@
+
+#load data from url
+
+arrests <- read.csv("https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/datasets/USArrests.csv", header = TRUE, sep = ",");
+
+str(arrests);
+
+View(arrests);
+
+# The data Usarrests.csv shows the number of Murder, Assault, Rape, Urbanpop with arrest made by each of the 50 states of United States of America.
+
+#1 load boxplot
+
+library(boxplot);
+
+boxplot(arrests, las=2, names = c("States", "Murder", "Assault", "UrbanPop", "Rape"));
+
+boxplot(arrests, las=2, col=c("blue", "red", "palevioletred", "brown", "pink"), names = c("States", "Murder", "Assault", "UrbanPop", "Rape"));
+
+
+#2 HISTOGRAM: load library ggplots
+
+library(ggplot2);
+head(arrests);
+str(arrests);
+
+# Rename the column and data.
+
+allarrests=rename(arrests, c("X"="States"));
+
+str(allarrests);
+
+ggplot(allarrests, aes(x=Murder, fill = factor(States))) +
+  geom_histogram(binwidth = 0.5) +
+  xlab("States") +
+  ylab("Murder Rate") +
+  labs(fill = "States");
+
+ggplot(allarrests, aes(x=Rape, fill = factor(States))) +
+  geom_histogram(binwidth = 0.5)
+  xlab("States") +
+  ylab("Assault Rate") +
+  labs(fill = "States");
+  
+  
+#attaching Allarrests file 
+
+  attach(allarrests);
+  
+# Ploting in Scatter plot
+  
+plot(Assault, Murder, main = "Scatter Plot", xlab = "Assault Rates",
+       ylab = "Murder Rates", pch=20);
+  abline(lm(Assault~Murder), col = "blue");
+  abline(lowess(Assault~Murder), col = "red");
+  
+reg <- lm(Assault~Murder)
+par(cex=.5)
+plot(Assault, Murder)
+abline(reg)
+abline(h=7);
+  
+# Install package scatterplot3d "install.packages("scatterplot3d");"
+
+#run scatterplot3d    
+library(scatterplot3d);
+ 
+#Attaching file 'allarrests' 
+
+attach(allarrests);
+
+# Run the this query to display it in 3D 
+  
+scatterplot3d(States, Murder, Assault, pch = 20, highlight.3d = TRUE, type = "h",
+                main = "3D ScatterPlots");
+scatterplot3d(States, Rape, UrbanPop, pch = 20, highlight.3d = TRUE, type = "h",
+                main = "3D ScatterPlots");
+  
+
+
+# THANKS FOR YOUR TIME.
+
+```
+
+
+
+
+```
+
