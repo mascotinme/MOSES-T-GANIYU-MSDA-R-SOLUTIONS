@@ -1,0 +1,239 @@
+---
+title: "R FINAL PROJECT"
+author: "MUSA T GANIYU"
+date: "November 20, 2015"
+output: html_document
+---
+
+
+
+```
+
+
+```{r, echo=FALSE}
+# We need to install packages RMySQL, DBI and load the libraries DBI & RMySQL to link the SQLServer to R
+
+install.packages("RMySQL");
+install.packages("DBI");
+library(DBI);
+library("RMySQL");
+# Run the query to give R access to SQL database. Note: Change your username, password and the host name. My local username is root, Password is oracle & host is localhost.
+
+TITANIC = dbConnect(MySQL(), user='root', password='oracle', dbname='TITANICS', host='localhost');
+
+#to check the number of tables in your database, use this query.
+
+dbListTables(TITANIC);
+
+#QUESTION: Find the passenger with Fare NOT IN 50 and PREDICT HER FUTURE FARE.
+#Solution: Now we can run the following SQL Queries in R
+
+TITANICS1 = dbSendQuery(TITANIC, "SELECT DISTINCT CLASS.NAME AS NAME, FARE.FARE AS FARE,
+CLASS.SEX AS SEX, FARE.TICKET AS TICKET
+  FROM TITANICTEST CLASS
+       JOIN TITANICTEST FARE
+       ON FARE.AGE = CLASS.FARE
+	   JOIN TITANICTEST CABIN
+       ON CLASS.SIBSP = CABIN.PARCH
+       GROUP BY FARE.FARE <> '50'
+ORDER BY NAME, TICKET, SEX ASC;");
+
+ 
+# We now display the output using FETCH and VIEW
+
+TITANIC2 = fetch(TITANICS1, n=-1);
+
+View(TITANIC2);
+
+
+# We are now in R!.
+titanictest <- read.csv("C:/Users/m/Desktop/test.csv", header = TRUE, sep = ",");
+
+#Her Future Fare would be:
+
+correlation = lm(Age~Fare, data=titanictest);
+coeffs = coefficients(correlation)
+coeffs; 
+Christyfare = data.frame(Fare=7.6292)
+predict(correlation, Christyfare);
+
+library(ggplot2);
+View(titanictest);
+str(titanictest);
+
+# The Histogram shows that we have more Male than Female in the Titanic
+ggplot(titanictest, aes(x=Age, fill = factor(Sex))) + geom_histogram(binwidth = 0.5) + xlab("Age") + ylab("sex") + labs(fill = "sex");
+
+# We can dedude that we have more passenger in Third Class Cabin than First Class Cabin.
+ggplot(titanictest, aes(x=Pclass, fill = factor(Cabin))) + geom_histogram(binwidth = 0.5) + xlab("Passenger Class") + ylab("Cabin") + labs(fill = "Cabin");
+
+
+
+#Install package scatterplot3d "install.packages("scatterplot3d");"
+
+install.packages("scatterplot3d");
+
+#run scatterplot3d
+
+library(scatterplot3d);
+
+#Attaching file 'allarrests'
+
+attach(titanictest);
+
+#Run the this query to display it in scatterPlot & 3D
+
+scatterplot3d(Pclass, Age, Fare, pch = 20, highlight.3d = TRUE, type = "h", main = "3D ScatterPlots"); 
+
+
+plot(Age, Fare, main = "Scatter Plot", xlab = "Passeger Age", ylab = "Fare", pch=20); 
+abline(lm(Age~Fare), col = "blue"); 
+abline(lowess(Age~Fare), col = "blue");
+
+# Install Packages psych (pyscometric) and load the library.
+
+install.packages("psych");
+library(psych);
+#Attach file again.
+
+attach(titanictest);
+
+# Getting the data Regression (Descriptive Statistics)
+
+dstatistics2 <- lm(Age ~ Fare, data=titanictest);
+
+summary(dstatistics2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
